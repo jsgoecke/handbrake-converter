@@ -13,7 +13,7 @@ puts 'Loading configuration file...'
 puts 'Configuration file loaded...'
 puts ''
 
-if Choice.choices[:use_dvd] == true
+if Choice.choices[:use_dvd] == 'true'
   puts 'Using the DVD player as the video source...'
   src_dir_contents = [ 'DVD.DVD' ]
 else
@@ -33,7 +33,7 @@ puts ''
 filetype_length = Choice.choices[:type].length
 
 src_dir_contents.each do |movie_to_convert|
-  if Choice.choices[:use_dvd] == true
+  if Choice.choices[:use_dvd] == 'true'
     conversion_instruction = @@config["handbrakecli_location"] + 
                              "/HandBrakeCLI -i DVD" +
                              " -o #{Choice.choices[:destination]}/#{movie_name}" + 
