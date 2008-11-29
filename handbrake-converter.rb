@@ -33,6 +33,8 @@ puts ''
 filetype_length = Choice.choices[:type].length
 
 src_dir_contents.each do |movie_to_convert|
+  filename = movie_to_convert.split(".")
+  movie_name = filename[0]
   if Choice.choices[:use_dvd] == 'true'
     conversion_instruction = @@config["handbrakecli_location"] + 
                              "/HandBrakeCLI -i DVD" +
@@ -47,8 +49,6 @@ src_dir_contents.each do |movie_to_convert|
     if filename_length > filetype_length
       length_offset = movie_to_convert.length - filetype_length
       if movie_to_convert.slice(length_offset, filetype_length) == Choice.choices[:type]
-        filename = movie_to_convert.split(".")
-        movie_name = filename[0]
         conversion_instruction = @@config["handbrakecli_location"] + 
                                  "/HandBrakeCLI -i #{Choice.choices[:source]}/#{movie_to_convert}" +
                                  " -o #{Choice.choices[:destination]}/#{movie_name}" + 
