@@ -4,6 +4,12 @@ handbrake-converter v0.1
 
 Ruby script to process a directory of media files with a series of presets as options
 
+*Requirements
+
+- Ruby v1.8.6+
+- Rubygems v1.X+
+- HandBrake/HandBrakeCLI v0.9.3+
+
 
 *Usage: handbrake-converter.rb [-sudctdv]
 
