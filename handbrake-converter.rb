@@ -20,15 +20,14 @@ else
   puts 'Scanning source directory...'
   src_dir_contents = Dir.entries(Choice.choices[:source])
   puts 'Source directory scanned...'
-end
-puts ''
-
-puts "Processing files in the directory " + 
+  puts ''
+  puts "Processing files in the directory " + 
      Choice.choices[:source] + 
      " with extensions '" + 
      Choice.choices[:type] + 
      "' and putting them in destination directory " + 
      Choice.choices[:destination] + " ..."
+end
 puts ''
 
 filetype_length = Choice.choices[:type].length
