@@ -15,3 +15,4 @@ handrake_presets:
     tv: ".mkv -e x264 -b 1300 -B 160 -R 48 -E faac -f mkv -x ref=3:mixed-refs:bframes=6:bime:weightb:direct=auto:b-pyramid:me=umh:subme=6:analyse=all:8x8dct:trellis=1:nr=150:no-fast-pskip -m -d -2 -T"
 
 handbrakecli_location: "~/HandBrakeCLI"
+dvd_location: "/media/cdrom"
