@@ -14,9 +14,14 @@ puts 'Loading configuration file...'
 puts 'Configuration file loaded...'
 puts ''
 
-puts 'Scanning source directory...'
-src_dir_contents = Dir.entries(Choice.choices[:source])
-puts 'Source directory scanned...'
+if Choice.choices[:use_dvd] == true
+  puts 'Using the DVD player as the video source...'
+  src_dir_contents = [ 'DVD' ]
+else
+  puts 'Scanning source directory...'
+  src_dir_contents = Dir.entries(Choice.choices[:source])
+  puts 'Source directory scanned...'
+end
 puts ''
 
 puts "Processing files in the directory " + 
