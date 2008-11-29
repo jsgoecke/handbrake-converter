@@ -1,0 +1,84 @@
+handbrake-converter v0.1
+
+*Description
+
+Ruby script to process a directory of media files with a series of presets as options
+
+
+*Usage: handbrake-converter.rb [-sudctdv]
+
+Specific options:
+    -s, --source=SOURCE              The full source directory to fetch the video files from
+    -u, --use_dvd=USE_DVD            Use a DVD as the source as opposed to a directory
+    -d, --destination=DESTINATION    The full destination directory to store the converted video files to
+    -c, --conversion=CONVERSION      The conversion preset to use, see config/config.yml for options
+    -t, --type=TYPE                  The originating filetype to get from the source directory (ie - wmv, mov, avi)
+    -d, --delete=DELETE              Set to true if you would like to delete the source file after conversion
+
+Common options: 
+        --help                       Show this message
+    -v, --version                    Show version
+
+
+*Presets
+
+- animation: 
+
+HandBrake's settings for cartoons, anime, and CGI.
+
+- appletv: 
+
+HandBrake's settings for the AppleTV.
+Provides a good balance between quality
+and file size, and optimizes
+performance.
+
+- bedlam: 
+
+HandBrake's settings maxed out for
+slowest encoding and highest quality.
+Use at your own risk. So slow it's not
+just insane...it's a trip to the looney
+bin.
+
+- broke: 
+
+HandBrake's preset for people without a
+lot of money to waste on hard drives.
+Tries to maximize quality for burning to
+CDs, so you can party like it's 1999.
+
+- deux_six: 
+
+HandBrake's preset for true high profile
+x264 quality. A good balance of quality
+and speed, based on community standards
+found in the wild. This preset will give
+you a much better sense of x264's
+capabilities than vanilla main profile.
+
+- iphone: 
+
+HandBrake's settings for the iPhone.
+
+- ps3: 
+
+HandBrake's settings for the Sony
+PlayStation 3.
+
+- psp: 
+
+HandBrake's settings for the Sony
+PlayStation Portable.
+
+- quicktime: 
+
+HandBrake's high quality settings for
+use with QuickTime. It can be slow, so
+use it when the Normal preset doesn't
+look good enough.
+
+- tv: 
+
+HandBrake's settings for video from
+television.

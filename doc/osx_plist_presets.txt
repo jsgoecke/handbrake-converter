@@ -1,0 +1,473 @@
+
+
+****************************************
+*              Animation               *
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+HandBrake's settings for cartoons,
+anime, and CGI.
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+      AVC/H.264 Video / AAC Audio       
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+./HandBrakeCLI -i DVD -o ~/Movies/movie.mkv  -e x264 -b 1000 -B 160 -R 48 -E faac -f mkv -x ref=5:mixed-refs:bframes=6:bime:weightb:b-rdo:direct=auto:b-pyramid:me=umh:subme=5:analyse=all:8x8dct:trellis=1:nr=150:no-fast-pskip:filter=2,2 -m -d -p -2 -T
+****************************************
+
+if (!strcmp(preset_name, "Animation"))
+{
+	mux = HB_MUX_MKV;
+	vcodec = HB_VCODEC_X264;
+	job->vbitrate = 1000;
+	job->abitrate = 160;
+	job->arate = 48000;
+	acodec = HB_ACODEC_FAAC;
+	x264opts = strdup("ref=5:mixed-refs:bframes=6:bime:weightb:b-rdo:direct=auto:b-pyramid:me=umh:subme=5:analyse=all:8x8dct:trellis=1:nr=150:no-fast-pskip:filter=2,2");
+	job->chapter_markers = 1;
+	job->deinterlace = 1;
+	pixelratio = 1;
+	twoPass = 1;
+	turbo_opts_enabled = 1;
+}
+
+printf("\n+ Animation:  -e x264 -b 1000 -B 160 -R 48 -E faac -f mkv -m -d -p -2 -T -x ref=5:mixed-refs:bframes=6:bime:weightb:b-rdo:direct=auto:b-pyramid:me=umh:subme=5:analyse=all:8x8dct:trellis=1:nr=150:no-fast-pskip:filter=2,2\n");
+
+****************************************
+*               AppleTV                *
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+HandBrake's settings for the AppleTV.
+Provides a good balance between quality
+and file size, and optimizes
+performance.
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+      AVC/H.264 Video / AAC Audio       
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+./HandBrakeCLI -i DVD -o ~/Movies/movie.mp4  -e x264 -b 2500 -B 160 -R 48 -E faac -f mp4 -x bframes=3:ref=1:subme=5:me=umh:no-fast-pskip=1:trellis=2:cabac=0 -m -p
+****************************************
+
+if (!strcmp(preset_name, "AppleTV"))
+{
+	mux = HB_MUX_MP4;
+	vcodec = HB_VCODEC_X264;
+	job->vbitrate = 2500;
+	job->abitrate = 160;
+	job->arate = 48000;
+	acodec = HB_ACODEC_FAAC;
+	x264opts = strdup("bframes=3:ref=1:subme=5:me=umh:no-fast-pskip=1:trellis=2:cabac=0");
+	job->chapter_markers = 1;
+	pixelratio = 1;
+	}
+
+printf("\n+ AppleTV:  -e x264 -b 2500 -B 160 -R 48 -E faac -f mp4 -m -p -x bframes=3:ref=1:subme=5:me=umh:no-fast-pskip=1:trellis=2:cabac=0\n");
+
+****************************************
+*                Bedlam                *
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+HandBrake's settings maxed out for
+slowest encoding and highest quality.
+Use at your own risk. So slow it's not
+just insane...it's a trip to the looney
+bin.
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+      AVC/H.264 Video / AC-3 Audio      
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+./HandBrakeCLI -i DVD -o ~/Movies/movie.mkv  -e x264 -b 1800 -B 160 -R 48 -E ac3 -f mkv -x ref=16:mixed-refs:bframes=6:bime:weightb:b-rdo:direct=auto:b-pyramid:me=umh:subme=7:me-range=64:analyse=all:8x8dct:trellis=2:no-fast-pskip:no-dct-decimate:filter=-2,-1 -m -p -2 -T
+****************************************
+
+if (!strcmp(preset_name, "Bedlam"))
+{
+	mux = HB_MUX_MKV;
+	vcodec = HB_VCODEC_X264;
+	job->vbitrate = 1800;
+	job->abitrate = 160;
+	job->arate = 48000;
+	acodec = HB_ACODEC_AC3;
+	x264opts = strdup("ref=16:mixed-refs:bframes=6:bime:weightb:b-rdo:direct=auto:b-pyramid:me=umh:subme=7:me-range=64:analyse=all:8x8dct:trellis=2:no-fast-pskip:no-dct-decimate:filter=-2,-1");
+	job->chapter_markers = 1;
+	pixelratio = 1;
+	twoPass = 1;
+	turbo_opts_enabled = 1;
+}
+
+printf("\n+ Bedlam:  -e x264 -b 1800 -B 160 -R 48 -E ac3 -f mkv -m -p -2 -T -x ref=16:mixed-refs:bframes=6:bime:weightb:b-rdo:direct=auto:b-pyramid:me=umh:subme=7:me-range=64:analyse=all:8x8dct:trellis=2:no-fast-pskip:no-dct-decimate:filter=-2,-1\n");
+
+****************************************
+*                Blind                 *
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+HandBrake's preset for impatient people
+who don't care about picture quality.
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+        MPEG-4 Video / AAC Audio        
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+./HandBrakeCLI -i DVD -o ~/Movies/movie.mp4  -b 512 -B 128 -R 48 -E faac -f mp4 -w 512 -m
+****************************************
+
+if (!strcmp(preset_name, "Blind"))
+{
+	mux = HB_MUX_MP4;
+	job->vbitrate = 512;
+	job->abitrate = 128;
+	job->arate = 48000;
+	acodec = HB_ACODEC_FAAC;
+	job->width = 512;
+	job->chapter_markers = 1;
+	}
+
+printf("\n+ Blind:  -b 512 -B 128 -R 48 -E faac -f mp4 -w 512 -m\n");
+
+****************************************
+*                Broke                 *
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+HandBrake's preset for people without a
+lot of money to waste on hard drives.
+Tries to maximize quality for burning to
+CDs, so you can party like it's 1999.
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+      AVC/H.264 Video / AAC Audio       
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+./HandBrakeCLI -i DVD -o ~/Movies/movie.mp4  -e x264 -S 695 -B 128 -R 48 -E faac -f mp4 -w 640 -x ref=3:mixed-refs:bframes=6:bime:weightb:b-rdo:b-pyramid:direct=auto:me=umh:subme=6:trellis=1:analyse=all:8x8dct:no-fast-pskip -m -2 -T
+****************************************
+
+if (!strcmp(preset_name, "Broke"))
+{
+	mux = HB_MUX_MP4;
+	vcodec = HB_VCODEC_X264;
+	size = 695;
+	job->abitrate = 128;
+	job->arate = 48000;
+	acodec = HB_ACODEC_FAAC;
+	job->width = 640;
+	x264opts = strdup("ref=3:mixed-refs:bframes=6:bime:weightb:b-rdo:b-pyramid:direct=auto:me=umh:subme=6:trellis=1:analyse=all:8x8dct:no-fast-pskip");
+	job->chapter_markers = 1;
+	twoPass = 1;
+	turbo_opts_enabled = 1;
+}
+
+printf("\n+ Broke:  -e x264 -S 695 -B 128 -R 48 -E faac -f mp4 -w 640 -m -2 -T -x ref=3:mixed-refs:bframes=6:bime:weightb:b-rdo:b-pyramid:direct=auto:me=umh:subme=6:trellis=1:analyse=all:8x8dct:no-fast-pskip\n");
+
+****************************************
+*               Classic                *
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+HandBrake's traditional, faster,
+lower-quality settings.
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+        MPEG-4 Video / AAC Audio        
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+./HandBrakeCLI -i DVD -o ~/Movies/movie.mp4  -b 1000 -B 160 -R 48 -E faac -f mp4
+****************************************
+
+if (!strcmp(preset_name, "Classic"))
+{
+	mux = HB_MUX_MP4;
+	job->vbitrate = 1000;
+	job->abitrate = 160;
+	job->arate = 48000;
+	acodec = HB_ACODEC_FAAC;
+	}
+
+printf("\n+ Classic:  -b 1000 -B 160 -R 48 -E faac -f mp4\n");
+
+****************************************
+*        Constant Quality Rate         *
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+HandBrake's preset for consistently
+excellent quality in one pass, with the
+downside of entirely unpredictable file
+sizes and bitrates.
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+      AVC/H.264 Video / AC-3 Audio      
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+./HandBrakeCLI -i DVD -o ~/Movies/movie.mkv  -e x264 -q 0.64709997177124023 -B 160 -R 48 -E ac3 -f mkv -x ref=3:mixed-refs:bframes=3:b-pyramid:b-rdo:bime:weightb:filter=-2,-1:subme=6:trellis=1:analyse=all:8x8dct:me=umh -m -p
+****************************************
+
+if (!strcmp(preset_name, "Constant Quality Rate"))
+{
+	mux = HB_MUX_MKV;
+	vcodec = HB_VCODEC_X264;
+	job->vquality = 0.64709997177124023;
+	job->abitrate = 160;
+	job->arate = 48000;
+	acodec = HB_ACODEC_AC3;
+	x264opts = strdup("ref=3:mixed-refs:bframes=3:b-pyramid:b-rdo:bime:weightb:filter=-2,-1:subme=6:trellis=1:analyse=all:8x8dct:me=umh");
+	job->chapter_markers = 1;
+	pixelratio = 1;
+	}
+
+printf("\n+ Constant Quality Rate:  -e x264 -q 0.64709997177124023 -B 160 -R 48 -E ac3 -f mkv -m -p -x ref=3:mixed-refs:bframes=3:b-pyramid:b-rdo:bime:weightb:filter=-2,-1:subme=6:trellis=1:analyse=all:8x8dct:me=umh\n");
+
+****************************************
+*           Deux Six Quatre            *
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+HandBrake's preset for true high profile
+x264 quality. A good balance of quality
+and speed, based on community standards
+found in the wild. This preset will give
+you a much better sense of x264's
+capabilities than vanilla main profile.
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+      AVC/H.264 Video / AC-3 Audio      
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+./HandBrakeCLI -i DVD -o ~/Movies/movie.mkv  -e x264 -b 1600 -B 160 -R 48 -E ac3 -f mkv -x ref=5:mixed-refs:bframes=3:bime:weightb:b-rdo:b-pyramid:me=umh:subme=7:trellis=1:analyse=all:8x8dct:no-fast-pskip -m -p -2 -T
+****************************************
+
+if (!strcmp(preset_name, "Deux Six Quatre"))
+{
+	mux = HB_MUX_MKV;
+	vcodec = HB_VCODEC_X264;
+	job->vbitrate = 1600;
+	job->abitrate = 160;
+	job->arate = 48000;
+	acodec = HB_ACODEC_AC3;
+	x264opts = strdup("ref=5:mixed-refs:bframes=3:bime:weightb:b-rdo:b-pyramid:me=umh:subme=7:trellis=1:analyse=all:8x8dct:no-fast-pskip");
+	job->chapter_markers = 1;
+	pixelratio = 1;
+	twoPass = 1;
+	turbo_opts_enabled = 1;
+}
+
+printf("\n+ Deux Six Quatre:  -e x264 -b 1600 -B 160 -R 48 -E ac3 -f mkv -m -p -2 -T -x ref=5:mixed-refs:bframes=3:bime:weightb:b-rdo:b-pyramid:me=umh:subme=7:trellis=1:analyse=all:8x8dct:no-fast-pskip\n");
+
+****************************************
+*                 Film                 *
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+HandBrake's preset for feature films.
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+      AVC/H.264 Video / AC-3 Audio      
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+./HandBrakeCLI -i DVD -o ~/Movies/movie.mkv  -e x264 -b 2000 -B 160 -R 48 -E ac3 -f mkv -x ref=3:mixed-refs:bframes=3:bime:weightb:b-rdo:direct=auto:b-pyramid:me=umh:subme=6:analyse=all:8x8dct:trellis=1:no-fast-pskip -m -p -2 -T
+****************************************
+
+if (!strcmp(preset_name, "Film"))
+{
+	mux = HB_MUX_MKV;
+	vcodec = HB_VCODEC_X264;
+	job->vbitrate = 2000;
+	job->abitrate = 160;
+	job->arate = 48000;
+	acodec = HB_ACODEC_AC3;
+	x264opts = strdup("ref=3:mixed-refs:bframes=3:bime:weightb:b-rdo:direct=auto:b-pyramid:me=umh:subme=6:analyse=all:8x8dct:trellis=1:no-fast-pskip");
+	job->chapter_markers = 1;
+	pixelratio = 1;
+	twoPass = 1;
+	turbo_opts_enabled = 1;
+}
+
+printf("\n+ Film:  -e x264 -b 2000 -B 160 -R 48 -E ac3 -f mkv -m -p -2 -T -x ref=3:mixed-refs:bframes=3:bime:weightb:b-rdo:direct=auto:b-pyramid:me=umh:subme=6:analyse=all:8x8dct:trellis=1:no-fast-pskip\n");
+
+****************************************
+*         iPhone / iPod Touch          *
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+HandBrake's settings for the iPhone.
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+      AVC/H.264 Video / AAC Audio       
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+./HandBrakeCLI -i DVD -o ~/Movies/movie.mp4  -e x264b30 -b 960 -B 128 -R 48 -E faac -f mp4 -w 480 -x cabac=0:ref=1:analyse=all:me=umh:subme=6:no-fast-pskip=1:trellis=1 -m
+****************************************
+
+if (!strcmp(preset_name, "iPhone / iPod Touch"))
+{
+	mux = HB_MUX_MP4;
+	vcodec = HB_VCODEC_X264;
+job->h264_level = 30;
+	job->vbitrate = 960;
+	job->abitrate = 128;
+	job->arate = 48000;
+	acodec = HB_ACODEC_FAAC;
+	job->width = 480;
+	x264opts = strdup("cabac=0:ref=1:analyse=all:me=umh:subme=6:no-fast-pskip=1:trellis=1");
+	job->chapter_markers = 1;
+	}
+
+printf("\n+ iPhone / iPod Touch:  -e x264b30 -b 960 -B 128 -R 48 -E faac -f mp4 -w 480 -m -x cabac=0:ref=1:analyse=all:me=umh:subme=6:no-fast-pskip=1:trellis=1\n");
+
+****************************************
+*            iPod High-Rez             *
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+HandBrake's high resolution settings for
+the iPod. Good video quality, great for
+viewing on a TV using your iPod
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+      AVC/H.264 Video / AAC Audio       
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+./HandBrakeCLI -i DVD -o ~/Movies/movie.mp4  -e x264b30 -b 1500 -B 160 -R 48 -E faac -f mp4 -w 640 -x keyint=300:keyint-min=30:bframes=0:cabac=0:ref=1:vbv-maxrate=1500:vbv-bufsize=2000:analyse=all:me=umh:subme=6:no-fast-pskip=1 -m
+****************************************
+
+if (!strcmp(preset_name, "iPod High-Rez"))
+{
+	mux = HB_MUX_MP4;
+	vcodec = HB_VCODEC_X264;
+job->h264_level = 30;
+	job->vbitrate = 1500;
+	job->abitrate = 160;
+	job->arate = 48000;
+	acodec = HB_ACODEC_FAAC;
+	job->width = 640;
+	x264opts = strdup("keyint=300:keyint-min=30:bframes=0:cabac=0:ref=1:vbv-maxrate=1500:vbv-bufsize=2000:analyse=all:me=umh:subme=6:no-fast-pskip=1");
+	job->chapter_markers = 1;
+	}
+
+printf("\n+ iPod High-Rez:  -e x264b30 -b 1500 -B 160 -R 48 -E faac -f mp4 -w 640 -m -x keyint=300:keyint-min=30:bframes=0:cabac=0:ref=1:vbv-maxrate=1500:vbv-bufsize=2000:analyse=all:me=umh:subme=6:no-fast-pskip=1\n");
+
+****************************************
+*             iPod Low-Rez             *
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+HandBrake's low resolution settings for
+the iPod. Optimized for great playback
+on the iPod screen, with smaller file
+size.
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+      AVC/H.264 Video / AAC Audio       
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+./HandBrakeCLI -i DVD -o ~/Movies/movie.mp4  -e x264b30 -b 700 -B 160 -R 48 -E faac -f mp4 -w 320 -x keyint=300:keyint-min=30:bframes=0:cabac=0:ref=1:vbv-maxrate=768:vbv-bufsize=2000:analyse=all:me=umh:subme=6:no-fast-pskip=1 -m
+****************************************
+
+if (!strcmp(preset_name, "iPod Low-Rez"))
+{
+	mux = HB_MUX_MP4;
+	vcodec = HB_VCODEC_X264;
+job->h264_level = 30;
+	job->vbitrate = 700;
+	job->abitrate = 160;
+	job->arate = 48000;
+	acodec = HB_ACODEC_FAAC;
+	job->width = 320;
+	x264opts = strdup("keyint=300:keyint-min=30:bframes=0:cabac=0:ref=1:vbv-maxrate=768:vbv-bufsize=2000:analyse=all:me=umh:subme=6:no-fast-pskip=1");
+	job->chapter_markers = 1;
+	}
+
+printf("\n+ iPod Low-Rez:  -e x264b30 -b 700 -B 160 -R 48 -E faac -f mp4 -w 320 -m -x keyint=300:keyint-min=30:bframes=0:cabac=0:ref=1:vbv-maxrate=768:vbv-bufsize=2000:analyse=all:me=umh:subme=6:no-fast-pskip=1\n");
+
+****************************************
+*                Normal                *
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+HandBrake's normal, default settings.
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+      AVC/H.264 Video / AAC Audio       
+      This is your default preset.      
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+./HandBrakeCLI -i DVD -o ~/Movies/movie.mp4  -e x264 -b 1500 -B 160 -R 48 -E faac -f mp4 -x ref=2:bframes=2:subme=5:me=umh -m -p -2 -T
+****************************************
+
+if (!strcmp(preset_name, "Normal"))
+{
+	mux = HB_MUX_MP4;
+	vcodec = HB_VCODEC_X264;
+	job->vbitrate = 1500;
+	job->abitrate = 160;
+	job->arate = 48000;
+	acodec = HB_ACODEC_FAAC;
+	x264opts = strdup("ref=2:bframes=2:subme=5:me=umh");
+	job->chapter_markers = 1;
+	pixelratio = 1;
+	twoPass = 1;
+	turbo_opts_enabled = 1;
+}
+
+printf("\n+ Normal:  -e x264 -b 1500 -B 160 -R 48 -E faac -f mp4 -m -p -2 -T -x ref=2:bframes=2:subme=5:me=umh\n");
+
+****************************************
+*                 PS3                  *
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+HandBrake's settings for the Sony
+PlayStation 3.
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+      AVC/H.264 Video / AAC Audio       
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+./HandBrakeCLI -i DVD -o ~/Movies/movie.mp4  -e x264 -b 2500 -B 160 -R 48 -E faac -f mp4 -x level=41:subme=5:me=umh -m -p
+****************************************
+
+if (!strcmp(preset_name, "PS3"))
+{
+	mux = HB_MUX_MP4;
+	vcodec = HB_VCODEC_X264;
+	job->vbitrate = 2500;
+	job->abitrate = 160;
+	job->arate = 48000;
+	acodec = HB_ACODEC_FAAC;
+	x264opts = strdup("level=41:subme=5:me=umh");
+	job->chapter_markers = 1;
+	pixelratio = 1;
+	}
+
+printf("\n+ PS3:  -e x264 -b 2500 -B 160 -R 48 -E faac -f mp4 -m -p -x level=41:subme=5:me=umh\n");
+
+****************************************
+*                 PSP                  *
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+HandBrake's settings for the Sony
+PlayStation Portable.
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+        MPEG-4 Video / AAC Audio        
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+./HandBrakeCLI -i DVD -o ~/Movies/movie.mp4  -b 1024 -B 128 -R 48 -E faac -f mp4 -w 368 -l 208 -m
+****************************************
+
+if (!strcmp(preset_name, "PSP"))
+{
+	mux = HB_MUX_MP4;
+	job->vbitrate = 1024;
+	job->abitrate = 128;
+	job->arate = 48000;
+	acodec = HB_ACODEC_FAAC;
+	job->width = 368;
+	job->height = 208;
+	job->chapter_markers = 1;
+	}
+
+printf("\n+ PSP:  -b 1024 -B 128 -R 48 -E faac -f mp4 -w 368 -l 208 -m\n");
+
+****************************************
+*              QuickTime               *
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+HandBrake's high quality settings for
+use with QuickTime. It can be slow, so
+use it when the Normal preset doesn't
+look good enough.
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+      AVC/H.264 Video / AAC Audio       
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+./HandBrakeCLI -i DVD -o ~/Movies/movie.mp4  -e x264 -b 2000 -B 160 -R 48 -E faac -f mp4 -x ref=3:mixed-refs:bframes=3:bime:weightb:b-rdo:direct=auto:me=umh:subme=5:analyse=all:8x8dct:trellis=1:no-fast-pskip -m -p -2 -T
+****************************************
+
+if (!strcmp(preset_name, "QuickTime"))
+{
+	mux = HB_MUX_MP4;
+	vcodec = HB_VCODEC_X264;
+	job->vbitrate = 2000;
+	job->abitrate = 160;
+	job->arate = 48000;
+	acodec = HB_ACODEC_FAAC;
+	x264opts = strdup("ref=3:mixed-refs:bframes=3:bime:weightb:b-rdo:direct=auto:me=umh:subme=5:analyse=all:8x8dct:trellis=1:no-fast-pskip");
+	job->chapter_markers = 1;
+	pixelratio = 1;
+	twoPass = 1;
+	turbo_opts_enabled = 1;
+}
+
+printf("\n+ QuickTime:  -e x264 -b 2000 -B 160 -R 48 -E faac -f mp4 -m -p -2 -T -x ref=3:mixed-refs:bframes=3:bime:weightb:b-rdo:direct=auto:me=umh:subme=5:analyse=all:8x8dct:trellis=1:no-fast-pskip\n");
+
+****************************************
+*              Television              *
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+HandBrake's settings for video from
+television.
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+      AVC/H.264 Video / AAC Audio       
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+./HandBrakeCLI -i DVD -o ~/Movies/movie.mkv  -e x264 -b 1300 -B 160 -R 48 -E faac -f mkv -x ref=3:mixed-refs:bframes=6:bime:weightb:direct=auto:b-pyramid:me=umh:subme=6:analyse=all:8x8dct:trellis=1:nr=150:no-fast-pskip -m -d -2 -T
+****************************************
+
+if (!strcmp(preset_name, "Television"))
+{
+	mux = HB_MUX_MKV;
+	vcodec = HB_VCODEC_X264;
+	job->vbitrate = 1300;
+	job->abitrate = 160;
+	job->arate = 48000;
+	acodec = HB_ACODEC_FAAC;
+	x264opts = strdup("ref=3:mixed-refs:bframes=6:bime:weightb:direct=auto:b-pyramid:me=umh:subme=6:analyse=all:8x8dct:trellis=1:nr=150:no-fast-pskip");
+	job->chapter_markers = 1;
+	job->deinterlace = 1;
+	twoPass = 1;
+	turbo_opts_enabled = 1;
+}
+
+printf("\n+ Television:  -e x264 -b 1300 -B 160 -R 48 -E faac -f mkv -m -d -2 -T -x ref=3:mixed-refs:bframes=6:bime:weightb:direct=auto:b-pyramid:me=umh:subme=6:analyse=all:8x8dct:trellis=1:nr=150:no-fast-pskip\n");
+
