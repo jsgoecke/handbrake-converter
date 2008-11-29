@@ -37,7 +37,7 @@ src_dir_contents.each do |movie_to_convert|
   movie_name = filename[0]
   if Choice.choices[:use_dvd] == 'true'
     conversion_instruction = @@config["handbrakecli_location"] + 
-                             "/HandBrakeCLI -i DVD" +
+                             "/HandBrakeCLI -i #{@@config['dvd_location']}" +
                              " -o #{Choice.choices[:destination]}/#{movie_name}" + 
                              @@config['handrake_presets'][Choice.choices[:conversion]]
     puts 'Starting to process ' + movie_to_convert + '...'
