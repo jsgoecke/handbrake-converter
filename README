@@ -12,7 +12,19 @@ Ruby script to process a directory of media files with a series of presets as op
 - HandBrake/HandBrakeCLI v0.9.3+
 
 
-*
+*Usage: handbrake-converter.rb [-sudctrv]
+
+Specific options:
+    -s, --source=SOURCE              The full source directory to fetch the video files from
+    -u, --use_dvd=USE_DVD            Use a DVD as the source as opposed to a directory
+    -d, --destination=DESTINATION    The full destination directory to store the converted video files to
+    -c, --conversion=CONVERSION      The conversion preset to use, see config/config.yml for options
+    -t, --type=TYPE                  The originating filetype to get from the source directory (ie - wmv, mov, avi)
+    -r, --remove=REMOVE              Set to true if you would like to remove the source file after conversion
+
+Common options: 
+        --help                       Show this message
+    -v, --version                    Show version
 
 
 *Presets
