@@ -1,10 +1,10 @@
 #!/usr/bin/env ruby
+#handbrake-converter.rb
+PROGRAM_VERSION = 0.1
+
 require 'rubygems'
 require 'configatron'
 require File.expand_path(File.dirname(__FILE__) + "/lib/choice.rb")
-
-#handbrake-converter.rb
-PROGRAM_VERSION = 0.1
 
 puts 'Lauching handbrake-converter.rb...'
 puts ''
