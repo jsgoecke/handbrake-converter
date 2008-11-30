@@ -39,10 +39,10 @@ Choice.options do
     default 'wmv'
   end
   
-  option :delete do
-    short '-d'
-    long '--delete=DELETE'
-    desc 'Set to true if you would like to delete the source file after conversion'
+  option :remove do
+    short '-r'
+    long '--remove=REMOVE'
+    desc 'Set to true if you would like to remove the source file after conversion'
     default 'false'
   end
   
