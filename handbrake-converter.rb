@@ -1,3 +1,4 @@
+#!/usr/bin/env ruby
 require 'rubygems'
 require 'configatron'
 require File.expand_path(File.dirname(__FILE__) + "/lib/choice.rb")
