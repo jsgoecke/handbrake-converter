@@ -58,7 +58,7 @@ src_dir_contents.each do |movie_to_convert|
         puts conversion_instruction
         system(conversion_instruction)
       end
-      if Choice.choices[:remove] == true
+      if Choice.choices[:remove] == 'true'
           system("rm #{Choice.choices[:source]}/#{movie_to_convert}.#{Choice.choices[:type]}")
       end
       puts 'Finished processing ' + movie_to_convert + '...'
