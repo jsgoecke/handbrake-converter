@@ -2,6 +2,7 @@
 #handbrake-converter.rb
 PROGRAM_VERSION = 0.1
 
+require 'fileutils'
 require 'rubygems'
 require 'configatron'
 require File.expand_path(File.dirname(__FILE__) + "/lib/choice.rb")
@@ -49,7 +50,7 @@ src_dir_contents.each do |movie_to_convert|
   puts conversion_instruction
   system conversion_instruction
   if Choice.choices[:remove] == 'true' && Choice.choices[:use_dvd] != 'true'
-    File.rm File.join(Choice.choices[:source], movie_to_convert)
+    FileUtils.rm File.join(Choice.choices[:source], movie_to_convert)
   end
   puts 'Finished processing ' + movie_to_convert + '...'
   
