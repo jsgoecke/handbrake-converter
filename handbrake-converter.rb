@@ -41,10 +41,10 @@ src_dir_contents.each do |movie_to_convert|
     File.join(Choice.choices[:source], movie_to_convert)
   end
   
+  preset = @@config['handrake_presets'][Choice.choices[:conversion]]
   basename = File.basename(movie_to_convert, File.extname(movie_to_convert))
-  destination = File.join(Choice.choices[:destination], basename)
-  preset_options = @@config['handrake_presets'][Choice.choices[:conversion]]
-  conversion_instruction = %Q{HandBrakeCLI -i "#{source}" -o "#{destination}" #{preset_options}}
+  destination = File.join(Choice.choices[:destination], basename + preset['ext'])
+  conversion_instruction = %Q{HandBrakeCLI -i "#{source}" -o "#{destination}" #{preset['opts']}}
   
   puts 'Starting to process ' + movie_to_convert + '...'
   puts conversion_instruction
