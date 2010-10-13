@@ -34,9 +34,6 @@ puts ''
 filetype_length = Choice.choices[:type].length
 
 src_dir_contents.each do |movie_to_convert|
-  filename = movie_to_convert.split(".")
-  movie_name = filename[0]
-  
   if Choice.choices[:use_dvd] == 'true'
     source = @@config['dvd_location']
   else
@@ -49,11 +46,10 @@ src_dir_contents.each do |movie_to_convert|
     end
   end
   
-  conversion_instruction = [
-    "HandBrakeCLI -i #{source}",
-    " -o #{Choice.choices[:destination]}/#{movie_name}",
-    @@config['handrake_presets'][Choice.choices[:conversion]]
-  ].join
+  basename = File.basename(movie_to_convert, '.'+Choice.choices[:type])
+  destination = File.join(Choice.choices[:destination], basename)
+  preset_options = @@config['handrake_presets'][Choice.choices[:conversion]]
+  conversion_instruction = %Q{HandBrakeCLI -i "#{source}" -o "#{destination}" #{preset_options}}
   
   puts 'Starting to process ' + movie_to_convert + '...'
   puts conversion_instruction
