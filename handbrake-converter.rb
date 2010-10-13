@@ -3,15 +3,16 @@
 PROGRAM_VERSION = 0.1
 
 require 'fileutils'
+require 'yaml'
 require 'rubygems'
-require 'configatron'
 require File.expand_path(File.dirname(__FILE__) + "/lib/choice.rb")
 
 puts 'Lauching handbrake-converter.rb...'
 puts ''
 
 puts 'Loading configuration file...'
-@@config = configatron.configure_from_yaml(File.expand_path(File.dirname(__FILE__) + "/config/config.yml"))
+config_file = File.expand_path(File.dirname(__FILE__) + "/config/config.yml")
+config = YAML.load File.read(config_file)
 puts 'Configuration file loaded...'
 puts ''
 
@@ -36,12 +37,12 @@ filetype_length = Choice.choices[:type].length
 
 src_dir_contents.each do |movie_to_convert|
   source = if Choice.choices[:use_dvd] == 'true'
-    @@config['dvd_location']
+    config['dvd_location']
   else
     File.join(Choice.choices[:source], movie_to_convert)
   end
   
-  preset = @@config['handrake_presets'][Choice.choices[:conversion]]
+  preset = config['handrake_presets'][Choice.choices[:conversion]]
   basename = File.basename(movie_to_convert, File.extname(movie_to_convert))
   destination = File.join(Choice.choices[:destination], basename + preset['ext'])
   conversion_instruction = %Q{HandBrakeCLI -i "#{source}" -o "#{destination}" #{preset['opts']}}
