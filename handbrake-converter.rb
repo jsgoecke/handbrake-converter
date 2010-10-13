@@ -36,35 +36,34 @@ filetype_length = Choice.choices[:type].length
 src_dir_contents.each do |movie_to_convert|
   filename = movie_to_convert.split(".")
   movie_name = filename[0]
+  
   if Choice.choices[:use_dvd] == 'true'
-    conversion_instruction = @@config["handbrakecli_location"] + 
-                             "/HandBrakeCLI -i #{@@config['dvd_location']}" +
-                             " -o #{Choice.choices[:destination]}/#{movie_name}" + 
-                             @@config['handrake_presets'][Choice.choices[:conversion]]
-    puts 'Starting to process ' + movie_to_convert + '...'
-    puts conversion_instruction
-    system(conversion_instruction)
-    puts 'Finished processing ' + movie_to_convert + '...'
+    source = @@config['dvd_location']
   else
     filename_length = movie_to_convert.length
     if filename_length > filetype_length
       length_offset = movie_to_convert.length - filetype_length
       if movie_to_convert.slice(length_offset, filetype_length) == Choice.choices[:type]
-        conversion_instruction = @@config["handbrakecli_location"] + 
-                                 "/HandBrakeCLI -i #{Choice.choices[:source]}/#{movie_to_convert}" +
-                                 " -o #{Choice.choices[:destination]}/#{movie_name}" + 
-                                 @@config['handrake_presets'][Choice.choices[:conversion]]
-        puts 'Starting to process ' + movie_to_convert + '...'
-        puts conversion_instruction
-        system(conversion_instruction)
+        source = File.join(Choice.choices[:source], movie_to_convert)
       end
-      if Choice.choices[:remove] == 'true'
-          system("rm #{Choice.choices[:source]}/#{movie_to_convert}.#{Choice.choices[:type]}")
-      end
-      puts 'Finished processing ' + movie_to_convert + '...'
-      puts ''
     end
   end
+  
+  conversion_instruction = [
+    @@config["handbrakecli_location"],
+    "/HandBrakeCLI -i #{source}",
+    " -o #{Choice.choices[:destination]}/#{movie_name}",
+    @@config['handrake_presets'][Choice.choices[:conversion]]
+  ].join
+  
+  puts 'Starting to process ' + movie_to_convert + '...'
+  puts conversion_instruction
+  system conversion_instruction
+  if Choice.choices[:remove] == 'true' && Choice.choices[:use_dvd] != 'true'
+    File.rm File.join(Choice.choices[:source], movie_to_convert)
+  end
+  puts 'Finished processing ' + movie_to_convert + '...'
+  
 end
 
 puts 'Completed conversions...'
