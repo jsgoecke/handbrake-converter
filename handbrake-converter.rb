@@ -19,7 +19,7 @@ if Choice.choices[:use_dvd] == 'true'
   src_dir_contents = [ 'DVD.DVD' ]
 else
   puts 'Scanning source directory...'
-  src_dir_contents = Dir.entries(Choice.choices[:source])
+  src_dir_contents = Dir.glob(File.join(Choice.choices[:source], '*.'+Choice.choices[:type]))
   puts 'Source directory scanned...'
   puts ''
   puts "Processing files in the directory " + 
