@@ -14,5 +14,4 @@ handrake_presets:
     quicktime: ".mp4 -e x264 -b 2000 -B 160 -R 48 -E faac -f mp4 -x ref=3:mixed-refs:bframes=3:bime:weightb:b-rdo:direct=auto:me=umh:subme=5:analyse=all:8x8dct:trellis=1:no-fast-pskip -m -p -2 -T"
     tv: ".mkv -e x264 -b 1300 -B 160 -R 48 -E faac -f mkv -x ref=3:mixed-refs:bframes=6:bime:weightb:direct=auto:b-pyramid:me=umh:subme=6:analyse=all:8x8dct:trellis=1:nr=150:no-fast-pskip -m -d -2 -T"
 
-handbrakecli_location: ~/HandBrakeCLI
 dvd_location: DVD

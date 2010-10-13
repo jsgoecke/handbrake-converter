@@ -50,8 +50,7 @@ src_dir_contents.each do |movie_to_convert|
   end
   
   conversion_instruction = [
-    @@config["handbrakecli_location"],
-    "/HandBrakeCLI -i #{source}",
+    "HandBrakeCLI -i #{source}",
     " -o #{Choice.choices[:destination]}/#{movie_name}",
     @@config['handrake_presets'][Choice.choices[:conversion]]
   ].join
