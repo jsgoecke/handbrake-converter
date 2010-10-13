@@ -49,8 +49,7 @@ src_dir_contents.each do |movie_to_convert|
   
   puts 'Starting to process ' + movie_to_convert + '...'
   puts conversion_instruction
-  system conversion_instruction
-  if Choice.choices[:remove] == 'true' && Choice.choices[:use_dvd] != 'true'
+  if system(conversion_instruction) && Choice.choices[:remove] == 'true' && Choice.choices[:use_dvd] != 'true'
     FileUtils.rm File.join(Choice.choices[:source], movie_to_convert)
   end
   puts 'Finished processing ' + movie_to_convert + '...'
