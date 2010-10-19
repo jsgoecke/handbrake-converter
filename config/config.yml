@@ -22,6 +22,9 @@ handrake_presets:
     iphone:
       ext: .mp4
       opts: "-e x264b30 -b 960 -B 128 -R 48 -E faac -f mp4 -w 480 -x cabac=0:ref=1:analyse=all:me=umh:subme=6:no-fast-pskip=1:trellis=1 -m"
+    iphone4:
+      ext: .mp4
+      opts: "-e x264b30 --two-pass --vb 1200 -B 128 -R 48 --aencoder faac --format mp4 --maxWidth 960 -x cabac=0:ref=1:analyse=all:me=umh:subme=6:no-fast-pskip=1:trellis=1 -m"
     ipod_high_res:
       ext: .mp4
       opts: "-e x264b30 -b 1500 -B 160 -R 48 -E faac -f mp4 -w 640 -x keyint=300:keyint-min=30:bframes=0:cabac=0:ref=1:vbv-maxrate=1500:vbv-bufsize=2000:analyse=all:me=umh:subme=6:no-fast-pskip=1 -m"
