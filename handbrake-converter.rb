@@ -5,7 +5,7 @@ PROGRAM_VERSION = 0.1
 require 'fileutils'
 require 'yaml'
 require 'rubygems'
-require File.expand_path(File.dirname(__FILE__) + "/lib/choice.rb")
+require File.expand_path(File.dirname(__FILE__) + "/lib/choice")
 
 puts 'Lauching handbrake-converter.rb...'
 puts ''
