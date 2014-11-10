@@ -8,7 +8,7 @@ Ruby script to process a directory of media files with a series of presets as op
 
 - Ruby v1.8.6+
 - Rubygems v1.X+
-	- gems: configatron & choice
+	- gems: choice
 - HandBrake/HandBrakeCLI v0.9.3+
 
 

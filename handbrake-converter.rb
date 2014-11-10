@@ -2,15 +2,17 @@
 #handbrake-converter.rb
 PROGRAM_VERSION = 0.1
 
+require 'fileutils'
+require 'yaml'
 require 'rubygems'
-require 'configatron'
-require File.expand_path(File.dirname(__FILE__) + "/lib/choice.rb")
+require File.expand_path(File.dirname(__FILE__) + "/lib/choice")
 
 puts 'Lauching handbrake-converter.rb...'
 puts ''
 
 puts 'Loading configuration file...'
-@@config = configatron.configure_from_yaml(File.expand_path(File.dirname(__FILE__) + "/config/config.yml"))
+config_file = File.expand_path(File.dirname(__FILE__) + "/config/config.yml")
+config = YAML.load File.read(config_file)
 puts 'Configuration file loaded...'
 puts ''
 
@@ -19,7 +21,7 @@ if Choice.choices[:use_dvd] == 'true'
   src_dir_contents = [ 'DVD.DVD' ]
 else
   puts 'Scanning source directory...'
-  src_dir_contents = Dir.entries(Choice.choices[:source])
+  src_dir_contents = Dir.glob(File.join(Choice.choices[:source], '*.'+Choice.choices[:type]))
   puts 'Source directory scanned...'
   puts ''
   puts "Processing files in the directory " + 
@@ -34,37 +36,24 @@ puts ''
 filetype_length = Choice.choices[:type].length
 
 src_dir_contents.each do |movie_to_convert|
-  filename = movie_to_convert.split(".")
-  movie_name = filename[0]
-  if Choice.choices[:use_dvd] == 'true'
-    conversion_instruction = @@config["handbrakecli_location"] + 
-                             "/HandBrakeCLI -i #{@@config['dvd_location']}" +
-                             " -o #{Choice.choices[:destination]}/#{movie_name}" + 
-                             @@config['handrake_presets'][Choice.choices[:conversion]]
-    puts 'Starting to process ' + movie_to_convert + '...'
-    puts conversion_instruction
-    system(conversion_instruction)
-    puts 'Finished processing ' + movie_to_convert + '...'
+  source = if Choice.choices[:use_dvd] == 'true'
+    config['dvd_location']
   else
-    filename_length = movie_to_convert.length
-    if filename_length > filetype_length
-      length_offset = movie_to_convert.length - filetype_length
-      if movie_to_convert.slice(length_offset, filetype_length) == Choice.choices[:type]
-        conversion_instruction = @@config["handbrakecli_location"] + 
-                                 "/HandBrakeCLI -i #{Choice.choices[:source]}/#{movie_to_convert}" +
-                                 " -o #{Choice.choices[:destination]}/#{movie_name}" + 
-                                 @@config['handrake_presets'][Choice.choices[:conversion]]
-        puts 'Starting to process ' + movie_to_convert + '...'
-        puts conversion_instruction
-        system(conversion_instruction)
-      end
-      if Choice.choices[:remove] == 'true'
-          system("rm #{Choice.choices[:source]}/#{movie_to_convert}.#{Choice.choices[:type]}")
-      end
-      puts 'Finished processing ' + movie_to_convert + '...'
-      puts ''
-    end
+    File.join(Choice.choices[:source], movie_to_convert)
   end
+  
+  preset = config['handrake_presets'][Choice.choices[:conversion]]
+  basename = File.basename(movie_to_convert, File.extname(movie_to_convert))
+  destination = File.join(Choice.choices[:destination], basename + preset['ext'])
+  conversion_instruction = %Q{HandBrakeCLI -i "#{source}" -o "#{destination}" #{preset['opts']}}
+  
+  puts 'Starting to process ' + movie_to_convert + '...'
+  puts conversion_instruction
+  if system(conversion_instruction) && Choice.choices[:remove] == 'true' && Choice.choices[:use_dvd] != 'true'
+    FileUtils.rm File.join(Choice.choices[:source], movie_to_convert)
+  end
+  puts 'Finished processing ' + movie_to_convert + '...'
+  
 end
 
 puts 'Completed conversions...'
